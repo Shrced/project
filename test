@@ -1,18 +1,15 @@
-import io
 import os
+
 import sys
 import glob
 import math
 import time
 import random
 import argparse
-import itertools
-import threading
-import collections
+import matplotlib.pyplot
 import numpy as np
 import scipy.ndimage, scipy.misc, PIL.Image
 import theano, theano.tensor as T
-T.nnet.softminus = lambda x: x - T.nnet.softplus(x)
 import lasagne 
 from lasagne.layers import InputLayer, ConcatLayer, ElemwiseSumLayer, batch_norm
 class DataLoader(threading.Thread):
