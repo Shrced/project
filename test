@@ -1,3 +1,6 @@
+//http://www.eecs.berkeley.edu/Research/Projects/CS/vision/grouping/BSR/BSR_bsds500.tgz   ds//
+
+
 import os
 import argparse
 import sys
@@ -8,8 +11,9 @@ import random
 import argparse
 import matplotlib.pyplot
 import numpy as np
-import scipy.ndimage, scipy.misc, PIL.Image
+import scipy.ndimage, scipy.misc
 import theano, theano.tensor as T
+import PIL.Image
 import lasagne 
 from lasagne.layers import InputLayer, ConcatLayer, ElemwiseSumLayer, batch_norm
 
