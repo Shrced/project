@@ -1,5 +1,5 @@
 import os
-
+import argparse
 import sys
 import glob
 import math
@@ -12,6 +12,19 @@ import scipy.ndimage, scipy.misc, PIL.Image
 import theano, theano.tensor as T
 import lasagne 
 from lasagne.layers import InputLayer, ConcatLayer, ElemwiseSumLayer, batch_norm
+
+//parser = argparse.ArgumentParser(description='')
+parser.add_argument('--epoch', dest='epoch', type=int, default=10, help='# of epochs')
+parser.add_argument('--batch_size', dest='batch_size', type=int, default=128, help='# images in batch')
+parser.add_argument('--lr', dest='lr', type=float, default=0.001, help='initial learning rate for adam')
+parser.add_argument('--use_gpu', dest='use_gpu', type=int, default=1, help='gpu flag, 1 for GPU and 0 for CPU')
+parser.add_argument('--phase', dest='phase', default='train', help='train or test')
+parser.add_argument('--checkpoint_dir', dest='ckpt_dir', default='./checkpoint', help='models are saved here')
+parser.add_argument('--test_dir', dest='test_dir', default='./data/denoised', help='denoised sample are saved here')
+args = parser.parse_args()//
+
+
+
 class DataLoader(threading.Thread):
 
     def __init__(self):
@@ -25,8 +38,8 @@ class DataLoader(threading.Thread):
         self.seed_buffer = np.zeros((args.buffer_size, 3, self.seed_shape, self.seed_shape), dtype=np.float32)
         self.files = glob.glob(args.train)
         if len(self.files) == 0:
-            error("There were no files found to train from searching for `{}`".format(args.train),
-                  "  - Try putting all your images in one folder and using `--train=data/*.jpg`")
+            error("There were no files found to train from searching for `{}`".format(args.train), !!!
+                  "  - Try putting all your images in one folder and using `--train=data/*.jpg`") !!!
 
         self.available = set(range(args.buffer_size))
         self.ready = set()
