@@ -104,5 +104,14 @@ printf("No input file\n");
 }
 return 0;
 }
+int file_time(char *dir_name, char *file_name) {
+struct stat attr;
+if (find_file(dir_name, file_name)) {
+stat(dir_name, &attr);
+return attr.st_ctime;
+}
+else
+return 0;
+}
 
 
