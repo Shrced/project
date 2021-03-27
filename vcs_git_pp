@@ -1,0 +1,108 @@
+struct commit {
+    char *id;
+    char *message;
+    commit *previous;
+    change *changes; 
+    int n_changes;
+  };
+  
+  void *vcs_init(void) {
+
+
+    commit *commit = (commit*)malloc(sizeof(commit));
+    com->id = NULL;
+    com->message = NULL;
+    com->previous = NULL;
+    com->changes = NULL; 
+    com->n_changes = 0;
+    HEAD = com;
+
+    return NULL;
+}
+
+
+void get_id(commit *commit) {
+    int id = 0;
+    for(int i = 0; i < strlen(commit->message); i++) {
+        id = (id + (int)(commit->message[i])) % 1000;
+    }
+    for(int i = 0; i < com->n_changes; i++) {
+        if(!strcmp(commit->changes[i].operation, "add")) {
+            id += 3252511;
+        } else if(!strcmp(commit->changes[i].operation, "delete")) {
+            id += 643347;
+        } 
+        
+        for(int j = 0; j < strlen(commit->changes[i].file_name); j++) {
+            id = (id * ((int)(commit->changes[i].file_name[j]) % 37)) % 88762561 + 2;
+        }
+    }
+    commit->id = (char*)malloc(7);
+}
+
+
+void free_commit(commit *ptr) {
+    if(ptr->id) {
+        free(ptr->id);
+        ptr->id = NULL;
+    }
+    if(ptr->message) {
+        free(ptr->message);
+        ptr->message = NULL;
+    }
+
+    if(ptr->n_changes) {
+        for(int i = 0; i < ptr->n_changes; i++) {
+            free(ptr->changes[i].file_name);
+        }
+        free(ptr->changes);
+        ptr->n_changes = 0;
+    }
+  
+    free(ptr);
+}
+
+
+
+
+int find_file(char *dir_name, char *file_name) {
+struct dirent *dir;
+DIR *fd;
+fd = opendir(dir_name);
+dir = readdir(fd);
+while (dir) {
+if (!strcmp(dir->d_name, file_name)) {
+closedir(fd);
+return 1;
+}
+dir = readdir(fd);
+}
+closedir(fd);
+return 0;
+}
+
+int record_file(char *dir_name, char *file_name) {
+
+}
+
+int main(int argc, char *argv[]) {
+struct stat attr;
+int var;
+if (argc > 1) {
+for (int i = 1; argv[i]; ++i) {
+var = find_file(".", argv[i]);
+if (!var)
+printf("File \"%s\" not found\n", argv[i]);
+else {
+printf("%d\n", var);
+printf("%s: time of last change: %d\n", argv[i], file_time(".", argv[i]));
+}
+}
+}
+else if (argc == 1) {
+printf("No input file\n");
+}
+return 0;
+}
+
+
