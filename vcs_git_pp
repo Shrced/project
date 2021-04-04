@@ -41,6 +41,24 @@ void get_id(commit *commit) {
 }
 
 
+int find_file(char *dir_name, char *file_name) {
+struct dirent *dir;
+DIR *fd;
+fd = opendir(dir_name);
+dir = readdir(fd);
+while (dir) {
+if (!strcmp(dir->d_name, file_name)) {
+closedir(fd);
+return 1;
+}
+dir = readdir(fd);
+}
+closedir(fd);
+return 0;
+}
+
+
+
 void free_commit(commit *ptr) {
     if(ptr->id) {
         free(ptr->id);
@@ -65,21 +83,6 @@ void free_commit(commit *ptr) {
 
 
 
-int find_file(char *dir_name, char *file_name) {
-struct dirent *dir;
-DIR *fd;
-fd = opendir(dir_name);
-dir = readdir(fd);
-while (dir) {
-if (!strcmp(dir->d_name, file_name)) {
-closedir(fd);
-return 1;
-}
-dir = readdir(fd);
-}
-closedir(fd);
-return 0;
-}
 
 int record_file(char *dir_name, char *file_name) {
 
